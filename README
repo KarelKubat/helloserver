@@ -1,0 +1,22 @@
+*** SETUP ***
+- Have GOPATH pointed to pwd
+    export GOPATH=$(pwd)
+  Or be creative in ~/.bashrc and put the contents of 'setgopath.sh' in there.
+- Test run locally:
+    go run src/helloserver/helloserver.go
+- Test install locally:
+    go install helloserver
+- Test the binary:
+    bin/helloserver
+
+*** BUILD AND TEST DOCKER ***
+- Build docker image:
+    docker build -t helloserver
+- Test docker:
+    docker run
+      --publish 1234:8080 \       # docker's port 8080 is 1234 on the outside
+      --name=helloserver-docker \ # some odd name
+      --rm \                      # remove when done
+      helloserver:v1              # image with tag as in Dockerfile
+- For a daemon you would:
+    docker stop helloserver:v1
