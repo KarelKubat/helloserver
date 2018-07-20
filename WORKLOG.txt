@@ -11,15 +11,18 @@
 
 *** BUILD AND TEST DOCKER ***
 - Build docker image:
-    docker build -t helloserver
+    # Note trailing dot (cwd)
+    docker build -t helloserver .
+    # This will show image helloserver with tag latest
+    docker image ls helloserver   # helloserver is optional, default=all
 - Test docker:
     docker run
-      --publish 1234:8080 \       # docker's port 8080 is 1234 on the outside
+      --publish=1234:8080 \       # docker's port 8080 is 1234 on the outside
       --name=helloserver-docker \ # some odd name
       --rm \                      # remove when done
-      helloserver:v1              # image with tag as in Dockerfile
+      helloserver                 # image
 - For a daemon you would:
-    docker stop helloserver:v1
+    docker stop helloserver
 
 *** GET PRESENCE ON GITHUB ***
 - Create github repo
@@ -31,3 +34,19 @@
   https://docs.docker.com/docker-hub/builds/#link-to-a-hosted-repository-service
   and enable automatic building
   
+*** PUBLISHING ETC ***
+- Login at docker.com:
+    docker login
+- Tag image for remote
+    export DOCKERUSER="HoweverYouAreCallingYourselfAtDocker.com"
+    # Make sure to increment the version each time
+    docker tag helloserver $DOCKERUSER/helloserver:v1
+- Push to docker
+    docker push $DOCKUSER/helloserver:v1
+    docker image ls $DOCKUSER/helloserver:v1
+
+*** RUNNING ON ANY MACHINE WITH DOCKER ***
+docker run \
+  --publish=1234:8080 \             # port NATting
+  --name=helloserver \              # friendly name
+  $DOCKUSER/helloserver:v1          # woot
