@@ -20,3 +20,14 @@
       helloserver:v1              # image with tag as in Dockerfile
 - For a daemon you would:
     docker stop helloserver:v1
+
+*** GET PRESENCE ON GITHUB ***
+- Create github repo
+- add .gitignore, don't spam the binary into git
+- push to origin
+
+*** AUTOMATED BUILDS ***
+- For real projects, read:
+  https://docs.docker.com/docker-hub/builds/#link-to-a-hosted-repository-service
+  and enable automatic building
+  
